@@ -2,23 +2,29 @@ name: Docker Image CI
  
 on:
   push:
-    branches: [ master ]
+    branches: [main]
   pull_request:
-    branches: [ master ]
+    branches: [main]
  
 jobs:
- 
   build:
- 
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      env:
-        USER: ${{ secrets.USER }}
-        PASS: ${{ secrets.PASS }}   
-      run: |        
-        docker build . --file Dockerfile --tag arunvel1988/devops-ci-demo-2026:v1
-        docker login -u $USER -p $PASS        
-        docker push arunvel1988/devops-ci-demo-2026:v1
+      - name: Checkout repository
+        uses: actions/checkout@v2
+ 
+      - name: Build the Docker image
+        env:
+          USER: ${{ secrets.DOCKER_USER }}
+          PASS: ${{ secrets.DOCKER_PASS }}
+        run: |
+          docker build -t luther443/devops-ci-demo-2026:v1 .
+         
+      - name: Docker login
+        run: |
+          echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+ 
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push luther443/devops-ci-demo-2026:v1
