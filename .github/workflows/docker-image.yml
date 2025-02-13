@@ -27,4 +27,4 @@ jobs:
  
       - name: Push Docker image to Docker Hub
         run: |
-          docker push luther443/devops-ci-demo-2026:v1
+          docker push musddik/devops-ci-demo-2026:v1
