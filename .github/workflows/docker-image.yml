@@ -19,7 +19,7 @@ jobs:
           USER: ${{ secrets.DOCKER_USER }}
           PASS: ${{ secrets.DOCKER_PASS }}
         run: |
-          docker build -t luther443/devops-ci-demo-2026:v1 .
+          docker build -t musddik/devops-ci-demo-2026:v1 .
          
       - name: Docker login
         run: |
